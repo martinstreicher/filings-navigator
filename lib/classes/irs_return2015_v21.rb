@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-class IrsReturn2015V21 < BaseReturn
+##
+# @todo: Decompose filer, address, and awards into separate classes
+#
+class IrsReturn2015V21 < BaseReturnObject
   include Memery
 
   AWARD_LIST_PATH =
@@ -29,8 +32,10 @@ class IrsReturn2015V21 < BaseReturn
     diggin('{USAddress,AddressUS}', data: filer, options: { underscore: true })
   end
 
-  def award_list
-    return_data.dig(*self.class::AWARD_LIST_PATH)
+  memoize def award_list
+    return_data.dig(*self.class::AWARD_LIST_PATH).map do |award|
+      Award.new(award)
+    end
   end
 
   def city

@@ -21,5 +21,11 @@ RSpec.describe IrsReturn2015V21 do
       expect(result.state).to eq('CA')
       expect(result.zip).to eq('91101')
     end
+
+    it 'yields a list for awards' do
+      expect(result.award_list).to be_a(Array)
+      debugger
+    end
   end
 end
+

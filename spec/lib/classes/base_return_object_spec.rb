@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe BaseReturn do
+RSpec.describe BaseReturnObject do
   let(:fail_one)      { {} }
   let(:fail_two)      { { 'Name' => {} } }
   let(:match)         { 'Gadget, Inc' }

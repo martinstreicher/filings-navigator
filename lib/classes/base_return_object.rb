@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BaseReturn
+class BaseReturnObject
   include Memery
 
   def initialize(irs_return_as_hash)
