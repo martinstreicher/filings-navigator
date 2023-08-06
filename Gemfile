@@ -52,6 +52,7 @@ gem "awesome_print"
 gem "interactor"
 gem "memery"
 gem "ox"
+gem "wannabe_bool"
 
 group :test do
   gem "faker"

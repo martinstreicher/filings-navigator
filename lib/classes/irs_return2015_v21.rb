@@ -25,8 +25,20 @@ class IrsReturn2015V21 < BaseReturn
     @irs_return_as_hash = irs_return_as_hash
   end
 
+  memoize def address
+    diggin('{USAddress,AddressUS}', data: filer, options: { underscore: true })
+  end
+
   def award_list
     return_data.dig(*self.class::AWARD_LIST_PATH)
+  end
+
+  def city
+    diggin('{City,CityNm}', data: address, options: { underscore: true })
+  end
+
+  def ein
+    filer.dig(:ein)
   end
 
   memoize def filer
@@ -37,9 +49,36 @@ class IrsReturn2015V21 < BaseReturn
     return_header
   end
 
-  def return_date
+  def line1
+    diggin('{AddressLine1,AddressLine1Txt}', data: address, options: { underscore: true })
+  end
+
+  def name
+    diggin(
+      '{Name,BusinessName}/{BusinessNameLine1,BusinessNameLine1Txt}',
+      data:    filer,
+      options: { underscore: true }
+    )
+  end
+
+  def return_timestamp
     filing.dig(:return_ts)
   end
+
+  def state
+    diggin('{State,StateAbbreviationCd}', data: address, options: { underscore: true })
+  end
+
+  def tax_period
+    diggin('{TaxPeriodEndDt,TaxPeriodEndDate}', data: filing, options: { underscore: true })
+  end
+
+  def zip
+    diggin('{ZIPCode,ZIPCd}', data: address, options: { underscore: true })
+  end
+
+  alias zip_code zip
+  alias zipcode zip
 
   private
 

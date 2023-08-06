@@ -13,17 +13,17 @@ class BaseReturn
   # produce the cross product of each path and use the combinations as
   # alternate paths to dig into a hash to find the value.
 
-  def diggin(*args)
-    args.inject(irs_return_as_hash) do |xml, arg|
+  def diggin(*args, data: irs_return_as_hash, options: {})
+    args.inject(HashWithIndifferentAccess.new(data)) do |xml, arg|
       return if xml.nil?
-
-      ap xml.inspect
 
       sets = arg.split('/')
 
       path_alternates =
         sets.map do |set|
-          set.match?(/\A\{.*\}\z/) ? set[1..-2].split(',') : [set]
+          terms = (set.match?(/\A\{.*\}\z/) ? set[1..-2].split(',') : [set])
+          terms = terms.map(&:underscore).map(&:to_sym) if options[:underscore].to_boolean
+          terms
         end
 
       seed = path_alternates.shift

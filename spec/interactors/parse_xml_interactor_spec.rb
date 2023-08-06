@@ -14,7 +14,6 @@ RSpec.describe ParseXmlInteractor do
       expect(result.class.name).to eq(class_name)
       expect(result.filer.keys).to include(:ein, :business_name)
       expect(result.award_list).to be_a(Array)
-      debugger
     end
   end
 end

@@ -222,6 +222,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    wannabe_bool (0.7.1)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -266,6 +267,7 @@ DEPENDENCIES
   test-prof
   turbo-rails
   tzinfo-data
+  wannabe_bool
   web-console
   webdrivers
 
