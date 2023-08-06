@@ -1,5 +1,8 @@
 require_relative "boot"
 
+require "interactor"
+require "memery"
+require "ox"
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
@@ -9,6 +12,7 @@ Bundler.require(*Rails.groups)
 module FilingsNavigator
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.autoload_paths << Rails.root.join('lib/classes')
     config.load_defaults 7.0
 
     # Configuration for the application, engines, and railties goes here.
