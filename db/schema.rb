@@ -10,5 +10,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 0) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_07_142339) do
+  create_table "awards", force: :cascade do |t|
+    t.boolean "amended_return", default: false, null: false
+    t.float "amount", default: 0.0, null: false
+    t.integer "organization_id", null: false
+    t.integer "recipient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_awards_on_organization_id"
+    t.index ["recipient_id"], name: "index_awards_on_recipient_id"
+  end
+
+  create_table "filers", force: :cascade do |t|
+    t.string "city", null: false
+    t.string "ein", null: false
+    t.string "line1", null: false
+    t.string "name", null: false
+    t.string "state", null: false
+    t.string "zipcode", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ein"], name: "index_filers_on_ein"
+    t.index ["name"], name: "index_filers_on_name"
+  end
+
+  create_table "filings", force: :cascade do |t|
+    t.integer "organization_id", null: false
+    t.datetime "return_timestamp", null: false
+    t.date "tax_period", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_filings_on_organization_id"
+    t.index ["return_timestamp"], name: "index_filings_on_return_timestamp"
+    t.index ["tax_period"], name: "index_filings_on_tax_period"
+  end
+
+  create_table "recipients", force: :cascade do |t|
+    t.string "city", null: false
+    t.string "ein", null: false
+    t.string "line1", null: false
+    t.string "name", null: false
+    t.string "state", null: false
+    t.string "zipcode", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ein"], name: "index_recipients_on_ein"
+    t.index ["name"], name: "index_recipients_on_name"
+  end
+
 end

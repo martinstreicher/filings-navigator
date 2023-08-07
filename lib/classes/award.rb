@@ -9,6 +9,14 @@ class Award < BaseReturnObject
     diggin('{USAddress,AddressUS}', data: award_as_hash, options: { underscore: true })
   end
 
+  def amount
+    diggin(
+      '{AmountOfCashGrant,CashGrantAmt}',
+      data: award_as_hash,
+      options: { underscore: true }
+    )
+  end
+
   def amended_return?
     award_as_hash.dig(:amended_return_ind).present?
   end

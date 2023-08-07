@@ -49,13 +49,13 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "awesome_print"
-gem "factory_bot_rails"
 gem "interactor"
 gem "memery"
 gem "ox"
 gem "wannabe_bool"
 
 group :test do
+  gem "factory_bot_rails"
   gem "faker"
   gem "rspec-rails"
   gem "shoulda-matchers"
