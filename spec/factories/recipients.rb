@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :filer do
+  factory :recipient do
     ein     { Faker::Company.ein }
     name    { Faker::Company.name}
     line1   { Faker::Address.street_address }
