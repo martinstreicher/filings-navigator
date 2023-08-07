@@ -18,7 +18,14 @@ class Award < BaseReturnObject
   end
 
   def amended_return?
-    award_as_hash.dig(:amended_return_ind).present?
+    award_as_hash[:amended_return_ind].present?
+  end
+
+  def award_attributes
+    {
+      amount:         amount,
+      amended_return: amended_return?
+    }
   end
 
   def ein
@@ -27,6 +34,17 @@ class Award < BaseReturnObject
       data:    award_as_hash,
       options: { underscore: true }
     )
+  end
+
+  def recipient_attributes
+    {
+      name:    recipient_name,
+      ein:     ein,
+      line1:   line1,
+      city:    city,
+      state:   state,
+      zipcode: zip
+    }
   end
 
   def recipient_name

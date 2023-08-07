@@ -1,14 +1,17 @@
+# frozen_string_literal: true
+
 class Import990Interactor < BaseInteractor
-  validstes :xml_file_url, presence: true
+  validates :xml_file_url, presence: true
 
   def execute
-    result = ParseXmlInteractor.call(xml_file_url: xml_file_url).result
-    raise result.errors unless result.success?
+    service = ParseXmlInteractor.call(xml_file_url: xml_file_url)
+    raise service.errors unless service.success?
 
+    result = service.result
     filer  = Filer.new result.filer_attributes
     filing = Filing.new result.filing_attributes.merge(filer: filer)
 
-    awards = result.awards.map do |award|
+    awards = result.award_list.map do |award|
       recipient = Recipient.new award.recipient_attributes
 
       GrantAward.new(

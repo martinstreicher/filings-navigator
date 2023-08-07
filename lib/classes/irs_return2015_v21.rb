@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 ##
-# @todo: Decompose filer, address, and awards into separate classes
+# @todo: Decompose filer into separate classes
+# @todo: Make this a little cleaner with small embedded objects
 #
 class IrsReturn2015V21 < BaseReturnObject
   include Memery
@@ -25,7 +26,7 @@ class IrsReturn2015V21 < BaseReturnObject
     ].freeze
 
   def initialize(irs_return_as_hash)
-    @irs_return_as_hash = irs_return_as_hash
+    super
   end
 
   memoize def address
@@ -50,8 +51,26 @@ class IrsReturn2015V21 < BaseReturnObject
     return_header.dig(:filer)
   end
 
+  def filer_attributes
+    {
+      name:    name,
+      ein:     ein,
+      line1:   line1,
+      city:    city,
+      state:   state,
+      zipcode: zip
+    }
+  end
+
   memoize def filing
     return_header
+  end
+
+  def filing_attributes
+    {
+      return_timestamp: return_timestamp,
+      tax_period:       tax_period
+    }
   end
 
   def line1
