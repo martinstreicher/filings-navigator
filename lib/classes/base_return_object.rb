@@ -7,6 +7,10 @@ class BaseReturnObject
     @irs_return_as_hash = irs_return_as_hash
   end
 
+  def city
+    diggin('{City,CityNm}', data: address, options: { underscore: true })
+  end
+
   ##
   # Given a series of paths, where each path resembles
   # `{Name,BusinessName}/{BusinessNameLine1,BusinessNameLine1Txt}`,
@@ -42,6 +46,18 @@ class BaseReturnObject
 
       xml.dig(*working_path)
     end
+  end
+
+  def line1
+    diggin('{AddressLine1,AddressLine1Txt}', data: address, options: { underscore: true })
+  end
+
+  def state
+    diggin('{State,StateAbbreviationCd}', data: address, options: { underscore: true })
+  end
+
+  def zip
+    diggin('{ZIPCode,ZIPCd}', data: address, options: { underscore: true })
   end
 
   private

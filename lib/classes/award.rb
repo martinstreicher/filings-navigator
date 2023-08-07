@@ -5,8 +5,28 @@ class Award < BaseReturnObject
     @award_as_hash = award_as_hash
   end
 
-  def amended_return
-    award_as_hash.dig(:amended_return_ind)
+  memoize def address
+    diggin('{USAddress,AddressUS}', data: award_as_hash, options: { underscore: true })
+  end
+
+  def amended_return?
+    award_as_hash.dig(:amended_return_ind).present?
+  end
+
+  def ein
+    diggin(
+      '{EINOfRecipient,RecipientEIN}',
+      data:    award_as_hash,
+      options: { underscore: true }
+    )
+  end
+
+  def recipient_name
+    diggin(
+      '{RecipientNameBusiness,RecipientBusinessName}/{BusinessNameLine1,BusinessNameLine1Txt}',
+      data:    award_as_hash,
+      options: { underscore: true }
+    )
   end
 
   private
