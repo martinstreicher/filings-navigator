@@ -24,7 +24,6 @@ class Award < BaseReturnObject
   def award_attributes
     {
       amount:         amount,
-      amended_return: amended_return?
     }
   end
 

@@ -24,7 +24,6 @@ RSpec.describe IrsReturn2015V21 do
 
     it 'yields a list for awards' do
       expect(result.award_list).to be_a(Array)
-      debugger
     end
   end
 end

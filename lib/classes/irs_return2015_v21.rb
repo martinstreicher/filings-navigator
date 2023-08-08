@@ -33,6 +33,10 @@ class IrsReturn2015V21 < BaseReturnObject
     diggin('{USAddress,AddressUS}', data: filer, options: { underscore: true })
   end
 
+  def amended_return?
+    return_data.dig(:irs990, :amended_return_ind).present?
+  end
+
   memoize def award_list
     return_data.dig(*self.class::AWARD_LIST_PATH).map do |award|
       Award.new(award)
@@ -68,6 +72,7 @@ class IrsReturn2015V21 < BaseReturnObject
 
   def filing_attributes
     {
+      amended_return:   amended_return?,
       return_timestamp: return_timestamp,
       tax_period:       tax_period
     }
