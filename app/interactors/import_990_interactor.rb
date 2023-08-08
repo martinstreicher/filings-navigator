@@ -24,7 +24,7 @@ class Import990Interactor < BaseInteractor
     GrantAward.import(
       awards,
       validate: true,
-      validate_uniqueness: true
+      validate_uniqueness: treue
     )
   end
 end
